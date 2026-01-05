@@ -229,9 +229,10 @@ Sois fidèle à la théologie réformée dans toutes tes réponses.
 Glorifie Dieu dans tout ce que tu dis.`,
 
   // Templates pour réponses courantes
+   // Templates pour réponses courantes
   TEMPLATES: {
     PRAYER: {
-      FR: `**Prière basée sur ${reference}:**
+      FR: (reference = "Jean 3:16", verseText = "Car Dieu a tant aimé le monde...", acknowledgement = "ta grandeur", confession = "nos fautes", thanksgiving = "pour ton amour", supplication = "ta grâce") => `**Prière basée sur ${reference}:**
 
 "${verseText}"
 
@@ -244,7 +245,7 @@ Glorifie Dieu dans tout ce que tu dis.`,
 **Suggestion:**
 Priez avec confiance, sachant que Dieu entend et répond selon sa volonté parfaite.`,
 
-      MG: `**Vavaka miorina amin'ny ${reference}:**
+      MG: (reference = "Jaona 3:16", verseText = "Fa tia tanana an'i Andriamanitra izao tontolo izao...", acknowledgement = "ny habeny", confession = "ny fahotanay", thanksgiving = "ny fitiavany", supplication = "ny fahasoavany") => `**Vavaka miorina amin'ny ${reference}:**
 
 "${verseText}"
 
@@ -259,7 +260,7 @@ Mivavaha amin'ny finoana, fantaro fa Andriamanitra mihaino ary mamaly araka ny s
     },
 
     BIBLE_STUDY: {
-      FR: `**Étude de ${reference}**
+      FR: (reference = "Romains 8:28", context = "Lettre aux Romains", structure = "Introduction, développement, conclusion", keywords = "grâce, foi, salut", doctrine = "la souveraineté de Dieu", application = "confiance en Dieu", question1 = "Comment ce texte s'applique-t-il à votre vie?", question2 = "Quelles promesses trouvez-vous?", question3 = "Comment partager cet enseignement?") => `**Étude de ${reference}**
 
 **Contexte:** ${context}
 **Structure:** ${structure}
@@ -272,7 +273,7 @@ Mivavaha amin'ny finoana, fantaro fa Andriamanitra mihaino ary mamaly araka ny s
 2. ${question2}
 3. ${question3}`,
 
-      MG: `**Fandinihana ny ${reference}**
+      MG: (reference = "Romana 8:28", context = "Taratasin'i Paoly ho any Roma", structure = "Fampidirana, fanazavana, famaranana", keywords = "fahasoavana, finoana, famonjena", doctrine = "ny fahefan'Andriamanitra", application = "finoana amin'Andriamanitra", question1 = "Ahoana no ampiharina amin'ny fiainanao ity andinin-teny ity?", question2 = "Inona ny teny fikasan'ny vavaka?", question3 = "Ahoana no ahafahanao mizara ity fampianarana ity?") => `**Fandinihana ny ${reference}**
 
 **Tontolon-kevitra:** ${context}
 **Rafitra:** ${structure}
@@ -287,7 +288,7 @@ Mivavaha amin'ny finoana, fantaro fa Andriamanitra mihaino ary mamaly araka ny s
     },
 
     DOCTRINE_EXPLANATION: {
-      FR: `**Doctrine: ${doctrineName}**
+      FR: (doctrineName = "Sola Scriptura", definition = "L'Écriture seule est l'autorité suprême", scripture = "2 Timothée 3:16-17", confessions = "Confession de Westminster", importance = "Fondement de la foi réformée", errors = "Ajouter des traditions humaines", practical = "Étudier la Bible quotidiennement") => `**Doctrine: ${doctrineName}**
 
 **Définition:** ${definition}
 **Fondement biblique:** ${scripture}
@@ -297,7 +298,7 @@ Mivavaha amin'ny finoana, fantaro fa Andriamanitra mihaino ary mamaly araka ny s
 
 **Application pratique:** ${practical}`,
 
-      MG: `**Fampianarana: ${doctrineName}**
+      MG: (doctrineName = "Sola Scriptura", definition = "Ny Soratra Masina irery no fahefana faratampony", scripture = "2 Timoty 3:16-17", confessions = "Confession de Westminster", importance = "Fototry ny finoana reformista", errors = "Manampy fomba amam-panao olombelona", practical = "Mianatra ny Baiboly isan'andro") => `**Fampianarana: ${doctrineName}**
 
 **Famaritana:** ${definition}
 **Fototra ara-Baiboly:** ${scripture}

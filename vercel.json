@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/index.js",
+      "use": "@vercel/node",
+      "config": {
+        "maxLambdaSize": "15mb",
+        "includeFiles": [
+          "src/**",
+          "package.json"
+        ]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/webhook",
+      "dest": "src/index.js",
+      "methods": ["GET", "POST"]
+    },
+    {
+      "src": "/health",
+      "dest": "src/index.js"
+    },
+    {
+      "src": "/send-message",
+      "dest": "src/index.js",
+      "methods": ["POST"]
+    },
+    {
+      "src": "/",
+      "dest": "src/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "src/index.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "functions": {
+    "src/index.js": {
+      "maxDuration": 10,
+      "memory": 1024
+    }
+  }
+}

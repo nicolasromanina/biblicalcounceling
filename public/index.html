@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scriptura - Chatbot Biblique Réformé</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: #2ecc71;
+            color: white;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card h3 {
+            color: #3498db;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .card h3 i {
+            font-size: 1.5rem;
+        }
+        
+        .features {
+            list-style: none;
+        }
+        
+        .features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .features li:last-child {
+            border-bottom: none;
+        }
+        
+        .features li i {
+            color: #2ecc71;
+        }
+        
+        .api-info {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .endpoints {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+        
+        .endpoint {
+            font-family: 'Courier New', monospace;
+            background: white;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #2ecc71;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #3498db;
+            border: 2px solid #3498db;
+        }
+        
+        .btn-outline:hover {
+            background: #3498db;
+            color: white;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #ddd;
+            color: #7f8c8d;
+        }
+        
+        .theology-badge {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin: 0.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">🤖</div>
+            <h1>Scriptura</h1>
+            <div class="subtitle">Chatbot Biblique Réformé Protestant</div>
+            <div class="status-badge">
+                <i class="fas fa-circle" id="status-icon"></i>
+                <span id="status-text">Vérification...</span>
+            </div>
+            <p>Assistant d'enseignement biblique et d'accompagnement pastoral</p>
+        </header>
+        
+        <div class="content">
+            <div class="card">
+                <h3><i class="fas fa-bible"></i> Théologie</h3>
+                <p>Basé exclusivement sur la théologie réformée protestante:</p>
+                <div style="margin: 1rem 0;">
+                    <span class="theology-badge">Sola Scriptura</span>
+                    <span class="theology-badge">Sola Gratia</span>
+                    <span class="theology-badge">Sola Fide</span>
+                    <span class="theology-badge">Solus Christus</span>
+                    <span class="theology-badge">Soli Deo Gloria</span>
+                </div>
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> Confession de Westminster</li>
+                    <li><i class="fas fa-check"></i> Confession belge</li>
+                    <li><i class="fas fa-check"></i> Catéchisme de Heidelberg</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-globe"></i> Langues</h3>
+                <p>Support multilingue avec détection automatique:</p>
+                <ul class="features">
+                    <li><i class="fas fa-language"></i> Français (FR)</li>
+                    <li><i class="fas fa-language"></i> Malagasy (MG)</li>
+                </ul>
+                <div class="api-info">
+                    <p><strong>IA Powered:</strong> Utilise l'API Groq avec Mixtral-8x7B</p>
+                    <p><strong>Messages:</strong> Réponses bibliques contextuelles</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-sliders-h"></i> Fonctionnalités</h3>
+                <ul class="features">
+                    <li><i class="fas fa-comment"></i> Dialogue biblique intelligent</li>
+                    <li><i class="fas fa-hands-praying"></i> Support pour la prière</li>
+                    <li><i class="fas fa-church"></i> Orientation vers l'église locale</li>
+                    <li><i class="fas fa-book"></i> Explication des doctrines</li>
+                    <li><i class="fas fa-shield-alt"></i> Sécurité doctrinale</li>
+                    <li><i class="fas fa-bolt"></i> Réponses rapides</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3><i class="fas fa-plug"></i> API Endpoints</h3>
+            <div class="endpoints">
+                <div class="endpoint">GET /health → Statut du service</div>
+                <div class="endpoint">GET /api/status → Information API</div>
+                <div class="endpoint">GET /webhook → Vérification Facebook</div>
+                <div class="endpoint">POST /webhook → Webhook Messenger</div>
+                <div class="endpoint">POST /send-message → Envoi manuel</div>
+            </div>
+            
+            <h3 style="margin-top: 2rem;"><i class="fas fa-cogs"></i> Configuration</h3>
+            <p>Variables d'environnement requises:</p>
+            <div class="endpoints">
+                <div class="endpoint">FACEBOOK_PAGE_ACCESS_TOKEN</div>
+                <div class="endpoint">FACEBOOK_VERIFY_TOKEN</div>
+                <div class="endpoint">GROQ_API_KEY</div>
+                <div class="endpoint">FACEBOOK_APP_SECRET</div>
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <button class="btn btn-primary" onclick="checkHealth()">
+                <i class="fas fa-heartbeat"></i> Vérifier la santé
+            </button>
+            <a href="/health" class="btn btn-secondary" target="_blank">
+                <i class="fas fa-stethoscope"></i> Endpoint santé
+            </a>
+            <a href="/api/status" class="btn btn-outline" target="_blank">
+                <i class="fas fa-info-circle"></i> Statut API
+            </a>
+            <button class="btn btn-outline" onclick="showConfig()">
+                <i class="fas fa-code"></i> Voir la config
+            </button>
+        </div>
+        
+        <div class="card" id="config-card" style="display: none; margin-top: 2rem;">
+            <h3><i class="fas fa-terminal"></i> Configuration actuelle</h3>
+            <pre id="config-output" style="background: #f8f9fa; padding: 1rem; border-radius: 5px; overflow: auto;"></pre>
+        </div>
+        
+        <footer class="footer">
+            <p><strong>Scriptura v1.0.0</strong> - Chatbot Biblique Réformé</p>
+            <p>Théologie réformée protestante • Sola Scriptura • Pour la gloire de Dieu seule</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">
+                <i class="fas fa-exclamation-triangle"></i> 
+                Ce chatbot ne remplace pas un pasteur ou conseiller humain. 
+                En cas de détresse, cherchez une aide professionnelle.
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        // Vérifier la santé du service
+        async function checkHealth() {
+            const icon = document.getElementById('status-icon');
+            const text = document.getElementById('status-text');
+            
+            icon.style.color = '#f39c12';
+            text.textContent = 'Vérification en cours...';
+            
+            try {
+                const response = await fetch('/health');
+                const data = await response.json();
+                
+                if (data.status === 'healthy') {
+                    icon.style.color = '#2ecc71';
+                    text.textContent = 'Service actif et en bonne santé';
+                    showNotification('✅ Service opérationnel', 'success');
+                } else {
+                    icon.style.color = '#e74c3c';
+                    text.textContent = 'Service dégradé';
+                    showNotification('⚠️ Service dégradé', 'warning');
+                }
+                
+                console.log('Health check:', data);
+            } catch (error) {
+                icon.style.color = '#e74c3c';
+                text.textContent = 'Service inaccessible';
+                showNotification('❌ Service inaccessible', 'error');
+                console.error('Health check failed:', error);
+            }
+        }
+        
+        // Afficher la configuration
+        async function showConfig() {
+            const card = document.getElementById('config-card');
+            const output = document.getElementById('config-output');
+            
+            try {
+                const response = await fetch('/api/status');
+                const data = await response.json();
+                
+                output.textContent = JSON.stringify(data, null, 2);
+                card.style.display = 'block';
+                card.scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                output.textContent = 'Erreur lors de la récupération de la configuration';
+                card.style.display = 'block';
+            }
+        }
+        
+        // Notification toast
+        function showNotification(message, type) {
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                color: white;
+                font-weight: bold;
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            if (type === 'success') {
+                toast.style.background = '#2ecc71';
+            } else if (type === 'warning') {
+                toast.style.background = '#f39c12';
+            } else {
+                toast.style.background = '#e74c3c';
+            }
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+        
+        // Vérifier automatiquement au chargement
+        window.addEventListener('load', () => {
+            setTimeout(checkHealth, 1000);
+            
+            // Ajouter des styles d'animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>

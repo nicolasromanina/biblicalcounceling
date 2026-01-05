@@ -1,0 +1,38 @@
+{
+  "name": "scriptura-bot",
+  "version": "1.0.0",
+  "description": "Chatbot biblique Messenger - Théologie réformée protestante",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "vercel-build": "echo 'No build needed for Node.js'",
+    "test": "node test/test-bot.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1",
+    "body-parser": "^1.20.2",
+    "helmet": "^7.0.0",
+    "cors": "^2.8.5",
+    "node-cache": "^5.1.2"
+  },
+  "devDependencies": {
+    "@vercel/node": "^3.0.0",
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=18.x"
+  },
+  "keywords": [
+    "chatbot",
+    "bible",
+    "christian",
+    "reformed",
+    "messenger",
+    "theology"
+  ],
+  "author": "Scriptura Team",
+  "license": "MIT"
+}

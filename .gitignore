@@ -1,0 +1,373 @@
+# 🔒 ENVIRONNEMENT ET CONFIGURATIONS SENSIBLES
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env.staging
+.env.*
+!.env.example
+
+# Clés API et secrets
+*.key
+*.pem
+*.crt
+*.cert
+*.pub
+*.secret
+config/secrets.json
+config/private.json
+
+# 🔧 DEPENDANCES ET BUILD
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp/
+.pnp.js
+.yarn/install-state.gz
+
+# Dossiers de build
+dist/
+build/
+.out/
+.next/
+.nuxt/
+.gatsby/
+.cache/
+.next/
+.vscode/
+*.tsbuildinfo
+
+# Vercel
+.vercel/
+.vercel_build_output/
+
+# 📦 PACKAGE MANAGERS
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+shrinkwrap.yaml
+
+# 📁 LOGS ET FICHIERS TEMPORAIRES
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Fichiers de diagnostic
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Cache
+.cache/
+.parcel-cache/
+
+# 📊 BASE DE DONNEES ET STOCKAGE
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.mdb
+dump.rdb
+redis.conf
+
+# 🖼️ MEDIA ET UPLOADS
+uploads/
+media/
+temp/
+tmp/
+
+# 💻 ENVIRONNEMENTS DE DEVELOPPEMENT
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 🧪 TESTS ET QUALITE
+.nyc_output
+jest.config.js
+jest.setup.js
+test-results/
+reports/
+coverage/
+
+# 📱 APPLICATION SPECIFIQUE - SCRIPTURA BOT
+
+# Cache spécifique au bot
+.cache/
+.cache_biblical/
+.cache_responses/
+
+# Sessions utilisateur
+sessions/
+*.session
+
+# Backups automatiques
+backups/automatic/
+!backups/manual/
+
+# Fichiers de debug
+debug/
+*.debug
+*.stackdump
+
+# Fichiers de statistiques temporaires
+stats/
+analytics/temp/
+
+# Fichiers uploadés par les utilisateurs (si applicable)
+user_uploads/
+user_data/
+
+# 📊 MONITORING ET LOGS SPECIFIQUES
+logs/scriptura*.log
+logs/error*.log
+logs/access*.log
+!logs/README.md
+
+# 🚀 DEPLOIEMENT
+.deploy/
+.elasticbeanstalk/
+.ebextensions/
+.circleci/
+.travis.yml
+.gitlab-ci.yml
+.github/
+!github/workflows/deploy.yml
+
+# 🔐 CERTIFICATS SSL (ne jamais committer)
+ssl/
+certificates/
+*.csr
+*.p12
+*.der
+*.pfx
+
+# 📝 DOCUMENTATION GENEREE
+docs/_build/
+docs/_static/
+docs/_templates/
+
+# 🐳 DOCKER
+docker-compose.override.yml
+.dockerignore
+docker-compose.yml.local
+
+# 🧹 FICHIERS TEMPORAIRES SYSTEME
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+*.orig
+*.rej
+
+# 📦 ARCHIVES
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# 🎨 FICHIERS DESIGN
+*.psd
+*.ai
+*.sketch
+*.fig
+
+# 📄 FICHIERS OFFICE
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+*.odt
+
+# 📁 MACOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 🪟 WINDOWS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.stackdump
+
+# 🐧 LINUX
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# 🧪 TEST ET DEVELOPPEMENT
+# Fichiers de test avec des données sensibles
+test/fixtures/credentials.json
+test/data/private/
+test/__snapshots__/
+
+# 🔍 LINTERS ET FORMATEURS
+.eslintcache
+.stylelintcache
+.prettierignore
+.tern-project
+
+# 📈 ANALYTICS ET TELEMETRIE
+telemetry/
+usage-stats.json
+
+# 🛠️ OUTILS DE DEVELOPPEMENT
+.tern-port
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+.idea/workspace.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/*.iml
+
+# 🧰 OUTILS SPECIFIQUES NODE.JS
+node_modules/.cache/
+.npm/
+.npx/
+
+# 🔄 FICHIERS DE SYNCHRONISATION
+.dropbox
+.sync/
+.MobileSync/
+
+# 🚫 EXCEPTIONS - FICHIERS A GARDER
+!package.json
+!README.md
+!LICENSE
+!CHANGELOG.md
+!.env.example
+!backups/README.md
+!logs/README.md
+!public/robots.txt
+!public/favicon.ico
+
+# 📁 STRUCTURE SPECIFIQUE SCRIPTURA
+# Conserver ces dossiers vides dans le repo
+!src/prompts/
+!src/config/
+!src/services/
+!src/controllers/
+!src/utils/
+!public/
+!test/
+
+# Exceptions pour les dossiers vides
+!.gitkeep
+!README.md
+
+# 🎯 FICHIERS IGNORES PAR VERCEL
+.vercel/project.json
+.vercel/output/
+
+# ⚠️ SECURITE - FICHIERS A JAMAIS COMMITTER
+# Facebook
+facebook_credentials.json
+facebook_token.json
+
+# Groq
+groq_key.txt
+groq_credentials.json
+
+# Autres APIs
+api_keys.json
+secrets.txt
+credentials.txt
+
+# Certificats
+*.crt
+*.key
+*.p12
+*.pfx
+*.pem
+
+# 🧪 ENVIRONNEMENTS DE TEST
+# Fichiers de test avec données réelles
+test/data/production/
+test/fixtures/real_data/
+
+# 📊 BASE DE DONNEES DE TEST
+test.db
+test.sqlite
+test_database/
+
+# 🔧 CONFIGURATIONS LOCALES
+config/local.json
+config/development.json
+config/staging.json
+
+# 📝 DOCUMENTATION TEMPORAIRE
+docs/temp/
+docs/drafts/
+
+# 🎨 ASSETS TEMPORAIRES
+assets/temp/
+assets/uploads/
+assets/backups/
+
+# 📱 BUILD MOBILE (si applicable)
+android/
+ios/
+.expo/
+
+# 🐳 DOCKER LOCAL
+docker-compose.local.yml
+docker-compose.override.yml
+
+# 🔄 MIGRATIONS EN COURS
+migrations/*.tmp
+migrations/temp/
+
+# 💾 FICHIERS VOLUMINEUX
+*.mp4
+*.mp3
+*.wav
+*.avi
+*.mov
+*.mkv
+*.iso
+*.dmg
+*.exe
+*.msi
+
+# 📦 ARCHIVES DE BACKUP
+backup_*.zip
+backup_*.tar.gz
+backup_*.rar
+
+# 🧹 NETTOYAGE
+# Supprimer ces fichiers après chaque commit
+*.orig
+*.rej

@@ -76,23 +76,27 @@ module.exports = {
   },
   
   // Groq API
-  GROQ_MODELS: {
-    MIXTRAL: 'mixtral-8x7b-32768',
-    LLAMA: 'llama2-70b-4096',
-    GEMMA: 'gemma-7b-it'
-  },
+GROQ_MODELS: {
+  // REMPLACER l'ancien modèle par un modèle actuel :
+  MIXTRAL: 'mixtral-8x7b-instruct', // Ancien: 'mixtral-8x7b-32768'
+  LLAMA_3: 'llama-3.3-70b-versatile', // Modèle très performant
+  LLAMA_3_INSTANT: 'llama-3.1-8b-instant', // Rapide et efficace
+  GEMMA_2: 'gemma2-9b-it', // Nouveau modèle Google
+  LLAMA: 'llama2-70b-4096' // Garder pour compatibilité
+},
   
   GROQ_ENDPOINTS: {
     CHAT_COMPLETIONS: 'https://api.groq.com/openai/v1/chat/completions',
     MODELS: 'https://api.groq.com/openai/v1/models'
   },
   
-  GROQ_SETTINGS: {
-    DEFAULT_TEMPERATURE: 0.7,
-    DEFAULT_MAX_TOKENS: 800,
-    DEFAULT_TOP_P: 0.9,
-    TIMEOUT: 15000 // 15 secondes
-  },
+ GROQ_SETTINGS: {
+  DEFAULT_MODEL: 'llama-3.3-70b-versatile',
+  DEFAULT_TEMPERATURE: 0.7,
+  DEFAULT_MAX_TOKENS: 800,
+  DEFAULT_TOP_P: 0.9,
+  TIMEOUT: 15000 // 15 secondes
+},
   
   // Cache
   CACHE: {

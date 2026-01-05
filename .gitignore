@@ -371,3 +371,5 @@ backup_*.rar
 # Supprimer ces fichiers après chaque commit
 *.orig
 *.rej
+.vercel
+.env*.local

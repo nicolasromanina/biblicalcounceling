@@ -17,7 +17,7 @@ class GroqService {
         'Authorization': `Bearer ${this.apiKey}`,
         'Content-Type': 'application/json'
       },
-      timeout: 15000 // 15 secondes
+      timeout: 10000 // 10 secondes
     });
     
     console.log('✅ Service Groq initialisé');
@@ -81,37 +81,60 @@ class GroqService {
   }
   
   // Appeler l'API Groq
-  async callGroqAPI(messages, retries = 2) {
-    for (let attempt = 0; attempt <= retries; attempt++) {
-      try {
-        const response = await this.client.post('', {
-          model: GROQ_MODELS.MIXTRAL,
-          messages: messages,
-          temperature: 0.7,
-          max_tokens: 800,
-          top_p: 0.9,
-          stream: false,
-          stop: ['###', '---', '***'] // Arrêter sur ces séquences
-        });
-        
-        console.log(`✅ API Groq réussie (tentative ${attempt + 1}/${retries + 1})`);
-        return response.data;
-        
-      } catch (error) {
-        console.error(`❌ Tentative ${attempt + 1} échouée:`, {
-          status: error.response?.status,
-          message: error.response?.data?.error?.message || error.message
-        });
-        
-        if (attempt === retries) {
-          throw error;
+// Appeler l'API Groq
+async callGroqAPI(messages, retries = 2) {
+  const { GROQ_MODELS, GROQ_SETTINGS } = require('../config/constants');
+  
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const response = await this.client.post('', {
+        // UTILISER LE NOUVEAU MODÈLE
+        model: GROQ_SETTINGS.DEFAULT_MODEL || GROQ_MODELS.LLAMA_3_70B,
+        messages: messages,
+        temperature: GROQ_SETTINGS.DEFAULT_TEMPERATURE,
+        max_tokens: GROQ_SETTINGS.DEFAULT_MAX_TOKENS,
+        top_p: GROQ_SETTINGS.DEFAULT_TOP_P,
+        stream: false,
+        stop: ['###', '---', '***']
+      });
+      
+      console.log(`✅ API Groq réussie avec ${response.data.model} (tentative ${attempt + 1}/${retries + 1})`);
+      return response.data;
+      
+    } catch (error) {
+      console.error(`❌ Tentative ${attempt + 1} échouée:`, {
+        status: error.response?.status,
+        message: error.response?.data?.error?.message || error.message
+      });
+      
+      // Si le modèle est décommissionné, essayer un autre modèle
+      if (error.response?.data?.error?.message?.includes('decommissioned')) {
+        console.log('🔄 Modèle décommissionné, essai avec un autre modèle...');
+        try {
+          const fallbackResponse = await this.client.post('', {
+            model: 'mixtral-8x7b-instruct', // Modèle de secours
+            messages: messages,
+            temperature: 0.7,
+            max_tokens: 800,
+            top_p: 0.9,
+            stream: false
+          });
+          console.log('✅ Réussite avec le modèle de secours');
+          return fallbackResponse.data;
+        } catch (fallbackError) {
+          console.error('❌ Échec du modèle de secours:', fallbackError.message);
         }
-        
-        // Attendre avant de réessayer
-        await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
       }
+      
+      if (attempt === retries) {
+        throw error;
+      }
+      
+      // Attendre avant de réessayer
+      await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
     }
   }
+}
   
   // Construire le contexte
   buildContext(context, language) {
@@ -488,28 +511,50 @@ class GroqService {
   }
   
   // Tester la connexion à l'API
-  async testConnection() {
+async testConnection() {
+  const { GROQ_SETTINGS } = require('../config/constants');
+  
+  try {
+    const response = await this.client.post('', {
+      model: GROQ_SETTINGS.DEFAULT_MODEL || 'mixtral-8x7b-instruct',
+      messages: [{ role: 'user', content: 'Test de connexion' }],
+      max_tokens: 5
+    });
+    
+    return {
+      connected: true,
+      model: response.data.model,
+      status: 'active',
+      timestamp: new Date().toISOString()
+    };
+  } catch (error) {
+    console.error('❌ Test connexion Groq échoué:', error.message);
+    
+    // Tester avec un autre modèle si le premier échoue
     try {
-      const response = await this.client.post('', {
-        model: GROQ_MODELS.MIXTRAL,
+      const fallbackResponse = await this.client.post('', {
+        model: 'mixtral-8x7b-instruct',
         messages: [{ role: 'user', content: 'Test' }],
         max_tokens: 5
       });
       
       return {
         connected: true,
-        model: response.data.model,
-        status: 'active'
+        model: fallbackResponse.data.model,
+        status: 'active (fallback)',
+        timestamp: new Date().toISOString()
       };
-    } catch (error) {
-      console.error('❌ Test connexion Groq échoué:', error.message);
+    } catch (fallbackError) {
       return {
         connected: false,
         error: error.message,
-        status: 'inactive'
+        fallbackError: fallbackError.message,
+        status: 'inactive',
+        timestamp: new Date().toISOString()
       };
     }
   }
+}
 }
 
 // Exporter une instance singleton

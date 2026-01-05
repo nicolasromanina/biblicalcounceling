@@ -5,12 +5,12 @@
       "src": "src/index.js",
       "use": "@vercel/node",
       "config": {
-        "maxLambdaSize": "15mb",
-        "includeFiles": [
-          "src/**",
-          "package.json"
-        ]
+        "maxLambdaSize": "15mb"
       }
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -24,13 +24,22 @@
       "dest": "src/index.js"
     },
     {
+      "src": "/api/status",
+      "dest": "src/index.js"
+    },
+    {
       "src": "/send-message",
       "dest": "src/index.js",
       "methods": ["POST"]
     },
     {
+      "src": "/test-groq",
+      "dest": "src/index.js",
+      "methods": ["POST"]
+    },
+    {
       "src": "/",
-      "dest": "src/index.js"
+      "dest": "public/index.html"
     },
     {
       "src": "/(.*)",
@@ -39,11 +48,5 @@
   ],
   "env": {
     "NODE_ENV": "production"
-  },
-  "functions": {
-    "src/index.js": {
-      "maxDuration": 10,
-      "memory": 1024
-    }
   }
 }
